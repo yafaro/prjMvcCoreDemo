@@ -1,0 +1,55 @@
+﻿@model IEnumerable<prjMvcCoreDemo.Models.CProductWrap>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="CartView">購物車</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                序號
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0; foreach (var item in Model) {
+                count++;
+                <tr>
+            <td>
+                @count
+            </td>
+                    <td>
+                        <h3>@Html.DisplayFor(modelItem => item.FName)</h3>
+                        <img src="~/Images/@item.FimagePath" width="180">
+                    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPrice)
+            </td>
+            <td>
+                @Html.ActionLink("加入購物車", "AddToCart", new { id=item.FId  }) |
+            </td>
+        </tr>
+}
+}
+    </tbody>
+</table>

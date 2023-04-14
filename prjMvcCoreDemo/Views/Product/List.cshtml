@@ -1,0 +1,83 @@
+﻿@model IEnumerable<prjMvcCoreDemo.Models.TProduct>
+<script>
+    function confirmDelete(event) {
+        event.preventDefault(); // 阻止默認的連結行為
+
+        var input = prompt("請輸入DELETE以確認刪除:");
+
+        if (input && input.toUpperCase() === "DELETE") {
+            // 在此處處理刪除邏輯，例如發送Ajax請求或導航到連結的URL
+            console.log("確認刪除");
+            window.location.href = $("#deleteLink").attr("href"); // 導航到連結的URL進行刪除操作
+        } else {
+            alert("未輸入DELETE，取消刪除操作");
+        }
+    }
+</script>
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>產品</h1>
+
+<p>
+    <a asp-action="Create">新增產品</a>
+</p>
+<p>
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword")<input type="submit" value="查詢"/>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                序號
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model) {
+                count++;
+        <tr>
+            <td>
+                @count
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPrice)
+            </td>
+            <td>
+                        @Html.ActionLink("編輯", "Edit", "Product", new {  id=item.FId  },null)
+                        @Html.ActionLink("刪除", "Delete", "Product", new { id = item.FId }, new { id = "deleteLink", onclick = "return confirmDelete(event);" })
+
+            </td>
+        </tr>
+}
+}
+    </tbody>
+</table>
