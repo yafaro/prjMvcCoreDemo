@@ -19,7 +19,7 @@ namespace prjMvcCoreDemo.Controllers
         [HttpPost]
         public IActionResult Login(CLoginViewModel vm)
         {
-            TCustomer user = (new dbDemoContext()).TCustomers.FirstOrDefault(
+            TCustomer user = new dbDemoContext().TCustomers.FirstOrDefault(
                 t=>t.FEmail.Equals(vm.txtAccount)&&t.FPassword.Equals(vm.txtPassword));
             if(user !=null&&user.FPassword.Equals(vm.txtPassword))
             {

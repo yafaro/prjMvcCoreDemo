@@ -11,6 +11,10 @@ namespace prjMvcCoreDemo.Models
         {
         }
 
+        public dbDemoContext(DbContextOptions<ApplicationDbContext> options)
+        {
+        }
+
         public dbDemoContext(DbContextOptions<dbDemoContext> options)
             : base(options)
         {
@@ -19,6 +23,7 @@ namespace prjMvcCoreDemo.Models
         public virtual DbSet<TCustomer> TCustomers { get; set; } = null!;
         public virtual DbSet<TProduct> TProducts { get; set; } = null!;
         public virtual DbSet<TShoppingCart> TShoppingCarts { get; set; } = null!;
+        //public virtual DbSet<Post> Posts { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

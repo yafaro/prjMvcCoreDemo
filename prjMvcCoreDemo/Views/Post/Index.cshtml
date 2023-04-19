@@ -1,0 +1,37 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@model IPagedList<prjMvcCoreDemo.Models.Post>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>帖子列表</h1>
+<p>
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword")<input type="submit" value="查詢" />
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>標題</th>
+            <th>內容</th>
+            <th>發布時間</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>@post.Title</td>
+                <td>@Html.Raw(post.tContent)</td> <!-- 使用 Html.Raw 渲染带有 <br> 标签的文本 -->
+                <td>@post.CreatedAt</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    @Html.PagedListPager(Model,page => Url.Action("Index", new { page }))
+</div>
+<a asp-action="Create" class="btn btn-primary">發布新帖子</a>
